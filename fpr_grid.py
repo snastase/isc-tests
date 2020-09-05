@@ -1,18 +1,18 @@
+#!/usr/bin/env python
+
 from os.path import join
 from sys import argv
 import json
 import numpy as np
 from scipy.stats import ttest_1samp
 from brainiak.isc import (isc, permutation_isc, bootstrap_isc,
-                          phaseshift_isc, timeshift_isc,
-                          compute_summary_statistic,
-                          _check_timeseries_input, p_from_null)
+                          phaseshift_isc, timeshift_isc)
 from timeflip_isc import timeflip_isc
 from simulate_data import correlated_data
 
 
 # Get random seed for data generation
-seed = argv[1]
+seed = int(argv[1])
 
 
 # Set paths for saving outputs
@@ -49,7 +49,7 @@ def isc_test(data, test, pairwise=False, n_randomizations=1000):
 # Set grid parameters for simulated data and tests
 r = 0
 pairwise = False
-n_randomizations = 1000
+n_randomizations = 5000
 tests = [ttest_1samp, permutation_isc, bootstrap_isc,
          phaseshift_isc, timeshift_isc, timeflip_isc]
 n_subjects = [10, 20, 30, 50, 100, 200, 500, 1000]
